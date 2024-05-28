@@ -7,7 +7,6 @@
     <link rel="stylesheet" href="header.css">
     <link rel="stylesheet" href="gallery.css">
     <title>Galeria Zdjęć</title>
-
 </head>
 <body>
     <header>
@@ -38,7 +37,6 @@
         </div>
         
         <div id="modal">
-
             <img src="" id="modal-img">
             <div class="controls">
                 <button id="first-btn">Pierwszy</button>
@@ -49,9 +47,14 @@
         </div>
     </main>
 
-
 <script>
-    let images = [];
+    const images = [
+        "./gallery/BARCA-HERB.jpg",
+        "./gallery/BAYNER-HERB.jpg",
+        "./gallery/BVB-HERB.jpg",
+        // Dodaj więcej ścieżek do innych obrazów
+    ];
+
     let currentImageIndex = 0;
 
     // Funkcja do otwierania modala i wyświetlania zdjęcia
@@ -69,67 +72,29 @@
         currentImageIndex = index;
     }
 
-    // Znajdź wszystkie zdjęcia w folderze galeria i dodaj je do strony
-    fetch('./gallery/')
-        .then(response => response.text())
-        .then(data => {
-            const parser = new DOMParser();
-            const htmlDoc = parser.parseFromString(data, 'text/html');
-            const imageLinks = htmlDoc.querySelectorAll('a[href$=".jpg"], a[href$=".jpeg"], a[href$=".png"], a[href$=".gif"]');
-
-            imageLinks.forEach(imageLink => {
-                const imageUrl = './gallery/' + imageLink.getAttribute('href').split('/').pop();
-                images.push(imageUrl);
-            });
-
-            if (images.length > 0) {
-                displayImage(0);
-            }
-        })
-        .catch(error => {
-            console.error('Błąd wczytywania galerii:', error);
-        });
+    // Wyświetl pierwszy obraz po załadowaniu strony
+    displayImage(0);
 
     // Dodaj obsługę przycisków nawigacyjnych
     document.getElementById('first-btn').addEventListener('click', () => {
-        if (images.length > 0) {
-            displayImage(0);
-        }
+        displayImage(0);
     });
 
     document.getElementById('prev-btn').addEventListener('click', () => {
-        if (images.length > 0 && currentImageIndex > 0) {
+        if (currentImageIndex > 0) {
             displayImage(currentImageIndex - 1);
         }
     });
 
     document.getElementById('next-btn').addEventListener('click', () => {
-        if (images.length > 0 && currentImageIndex < images.length - 1) {
+        if (currentImageIndex < images.length - 1) {
             displayImage(currentImageIndex + 1);
         }
     });
 
     document.getElementById('last-btn').addEventListener('click', () => {
-        if (images.length > 0) {
-            displayImage(images.length - 1);
-        }
+        displayImage(images.length - 1);
     });
-function displayImage(index) {
-    const imageUrl = images[index];
-    console.log('Image URL:', imageUrl); // Dodaj ten console.log, aby sprawdzić adres URL obrazu
-    openModal(imageUrl);
-    currentImageIndex = index;
-}
-
-// Funkcja do otwierania modala i wyświetlania zdjęcia
-function openModal(src) {
-    console.log('Modal source:', src); // Dodaj ten console.log, aby sprawdzić, co jest przekazywane do funkcji openModal()
-    const modal = document.getElementById('modal');
-    const modalImg = document.getElementById('modal-img');
-
-    modal.style.display = 'block';
-    modalImg.src = src;
-}
 </script>
 
 </body>
