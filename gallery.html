@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="header.css">
+    <link rel="stylesheet" href="gallery.css">
+    <title>Galeria Zdjęć</title>
+
+</head>
+<body>
+    <header>
+        <h1><a href="index.html" class="header-link"><img src ="sitegallery/pitchpulse.png" style="max-width:100px; max-height: 100px; vertical-align: middle;">PitchPulse</a></h1>
+        <nav>
+            <ul>
+                <li><a href="form.html">Formularz zgłoszeniowy</a></li>
+                <li><a href="tabela.html">Tabela wyników</a></li>
+                <li><a href="gallery.html">Galeria zdjęć</a></li>
+                <li><a href="diy-herb.html">Narysuj herb</a></li>
+                <li><a href="round-map.html">Mapa kolejki</a></li>
+                <li><a href="xG.html">xG</a></li>
+                <li><a href="Stadiony/Prezentacja.html">Prezentacja</a></li>
+                <div class="timers">
+                    <p>Zegar: <span id="clock"></span></p>
+                    <p>Data: <span id="date"></span></p>
+                    <p>Licznik odwiedzin: <span id="visitCounter"></span></p>
+                    <p>Czas spędzony na stronie: <span id="pageTime"></span></p>
+                    <script src="timers.js"></script>
+                </div>
+            </ul>
+        </nav>
+    </header>
+    <main>
+
+        <div id="gallery">
+
+        </div>
+        
+        <div id="modal">
+
+            <img src="" id="modal-img">
+            <div class="controls">
+                <button id="first-btn">Pierwszy</button>
+                <button id="prev-btn">Poprzedni</button>
+                <button id="next-btn">Następny</button>
+                <button id="last-btn">Ostatni</button>
+            </div>
+        </div>
+    </main>
+
+
+<script>
+    let images = [];
+    let currentImageIndex = 0;
+
+    // Funkcja do otwierania modala i wyświetlania zdjęcia
+    function openModal(src) {
+        const modal = document.getElementById('modal');
+        const modalImg = document.getElementById('modal-img');
+
+        modal.style.display = 'block';
+        modalImg.src = src;
+    }
+
+    function displayImage(index) {
+        const imageUrl = images[index];
+        openModal(imageUrl);
+        currentImageIndex = index;
+    }
+
+    // Znajdź wszystkie zdjęcia w folderze galeria i dodaj je do strony
+    fetch('./gallery/')
+        .then(response => response.text())
+        .then(data => {
+            const parser = new DOMParser();
+            const htmlDoc = parser.parseFromString(data, 'text/html');
+            const imageLinks = htmlDoc.querySelectorAll('a[href$=".jpg"], a[href$=".jpeg"], a[href$=".png"], a[href$=".gif"]');
+
+            imageLinks.forEach(imageLink => {
+                images.push('./gallery/' + imageLink.getAttribute('href'));
+            });
+
+            if (images.length > 0) {
+                displayImage(0);
+            }
+        })
+        .catch(error => {
+            console.error('Błąd wczytywania galerii:', error);
+        });
+
+    // Dodaj obsługę przycisków nawigacyjnych
+    document.getElementById('first-btn').addEventListener('click', () => {
+        if (images.length > 0) {
+            displayImage(0);
+        }
+    });
+
+    document.getElementById('prev-btn').addEventListener('click', () => {
+        if (images.length > 0 && currentImageIndex > 0) {
+            displayImage(currentImageIndex - 1);
+        }
+    });
+
+    document.getElementById('next-btn').addEventListener('click', () => {
+        if (images.length > 0 && currentImageIndex < images.length - 1) {
+            displayImage(currentImageIndex + 1);
+        }
+    });
+
+    document.getElementById('last-btn').addEventListener('click', () => {
+        if (images.length > 0) {
+            displayImage(images.length - 1);
+        }
+    });
+
+</script>
+
+</body>
+</html>

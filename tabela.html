@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="tabelastyle.css">
+    <link rel="stylesheet" href="header.css">
+    <title>Tabela z pliku CSV</title>
+
+</head>
+<body>
+    <header>
+        <h1><a href="index.html" class="header-link"><img src ="sitegallery/pitchpulse.png" style="max-width:100px; max-height: 100px; vertical-align: middle;">PitchPulse</a></h1>
+        <nav>
+            <ul>
+                <li><a href="form.html">Formularz zgłoszeniowy</a></li>
+                <li><a href="tabela.html">Tabela wyników</a></li>
+                <li><a href="gallery.html">Galeria zdjęć</a></li>
+                <li><a href="diy-herb.html">Narysuj herb</a></li>
+                <li><a href="round-map.html">Mapa kolejki</a></li>
+                <li><a href="xG.html">xG</a></li>
+                <li><a href="Stadiony/Prezentacja.html">Prezentacja</a></li>
+                <div class="timers">
+                    <p>Zegar: <span id="clock"></span></p>
+                    <p>Data: <span id="date"></span></p>
+                    <p>Licznik odwiedzin: <span id="visitCounter"></span></p>
+                    <p>Czas spędzony na stronie: <span id="pageTime"></span></p>
+                    <script src="timers.js"></script>
+                </div>
+            </ul>
+        </nav>
+    </header>
+    <main>
+
+        <table id="csvTable">
+            <!-- Dane z pliku CSV zostaną wstawione tutaj -->
+            <tr>
+                <th colspan="11">Tabela wyników ligi piłkarskiej</th>
+                
+            </tr>
+        </table>
+    </main>
+        <script>
+            // Funkcja do wczytania pliku CSV i utworzenia tabeli
+            function loadCSV(filename) {
+                fetch(filename)
+                    .then(response => response.text())
+                    .then(data => {
+                        const rows = data.trim().split('\n');
+                        const table = document.getElementById('csvTable');
+
+                        rows.forEach(row => {
+                            const cells = row.split(',');
+                            const tr = document.createElement('tr');
+
+                            cells.forEach(cell => {
+                                const td = document.createElement('td');
+                                td.textContent = cell;
+                                tr.appendChild(td);
+                            });
+
+                            table.appendChild(tr);
+                        });
+                    })
+                    .catch(error => {
+                        console.error('Błąd wczytywania pliku CSV:', error);
+                    });
+            }
+
+            // Wczytaj plik CSV po załadowaniu strony
+            window.addEventListener('DOMContentLoaded', () => {
+                loadCSV('tabela.csv'); // Podaj nazwę pliku CSV
+            });
+        </script>
+</body>
+</html>

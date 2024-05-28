@@ -1,0 +1,122 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="header.css">
+    <link rel="stylesheet" href="xG.css">
+    <title>Kalkulator xG</title>
+</head>
+<body>
+    <header>
+        <h1><a href="index.html" class="header-link"><img src ="sitegallery/pitchpulse.png" style="max-width:100px; max-height: 100px; vertical-align: middle;">PitchPulse</a></h1>
+        <nav>
+            <ul>
+                <li><a href="form.html">Formularz zgłoszeniowy</a></li>
+                <li><a href="tabela.html">Tabela wyników</a></li>
+                <li><a href="gallery.html">Galeria zdjęć</a></li>
+                <li><a href="diy-herb.html">Narysuj herb</a></li>
+                <li><a href="round-map.html">Mapa kolejki</a></li>
+                <li><a href="xG.html">xG</a></li>
+                <li><a href="Stadiony/Prezentacja.html">Prezentacja</a></li>
+                <div class="timers">
+                    <p>Zegar: <span id="clock"></span></p>
+                    <p>Data: <span id="date"></span></p>
+                    <p>Licznik odwiedzin: <span id="visitCounter"></span></p>
+                    <p>Czas spędzony na stronie: <span id="pageTime"></span></p>
+                    <script src="timers.js"></script>
+                </div>
+            </ul>
+        </nav>
+    </header>
+    <main>
+        <div class="kalkulator">
+            <h2>Kalkulator xG</h2>
+            <label for="distance">Odległość do bramki (metry):</label>
+            <input type="number" id="distance" min="1" max="100" step="1" value="1">
+            <div id="distanceError" class="error"></div>
+            <br>
+            <label for="angle">Kąt (stopnie):</label>
+            <input type="number" id="angle" min="0" step="1" max="180" value="0">
+            <div id="angleError" class="error"></div>
+            <br>
+            <label for="bodyPart">Część ciała:</label>
+            <select id="bodyPart">
+                <option value="1">Lepsza stopa</option>
+                <option value="0.5">Słabsza stopa</option>
+                <option value="0.2">Głowa</option>
+                <option value="0.05">Pięta</option>
+            </select>
+            <br>
+            <label for="assistType">Typ asysty:</label>
+            <select id="assistType">
+                <option value="0.1">Dośrodkowanie</option>
+                <option value="0.3">Podanie wzdłuż boiska</option>
+                <option value="0.5">Krótkie podanie</option>
+                <option value="0.7">Brak asysty</option>
+            </select>
+            <br>
+            <label for="actionScheme">Schemat akcji:</label>
+            <select id="actionScheme">
+                <option value="0.3">Rzut wolny</option>
+                <option value="0.2">Rzut rożny</option>
+                <option value="0.1">Wyrzut z autu</option>
+                <option value="0.4">Kontra</option>
+                <option value="0.5">Atak pozycyjny</option>
+                <option value="0.6">Sytuacja jeden na jeden</option>
+            </select>
+            <br>
+            <button onclick="calculateXG()">Oblicz xG</button>
+            <div id="result"></div>
+
+            <script>
+                function calculateXG() {
+                    var distance = parseFloat(document.getElementById('distance').value);
+                    if (isNaN(distance) || distance < 1 || distance > 100) {
+                        document.getElementById('distanceError').innerText = "Odległość musi być liczbą między 1 a 100.";
+                        return;
+                    }
+                    document.getElementById('distanceError').innerText = ""; // Wyczyść komunikat błędu, jeśli odległość jest prawidłowa
+
+                    var angle = parseFloat(document.getElementById('angle').value);
+                    if (isNaN(angle) || angle < 1 || angle > 180) {
+                        document.getElementById('angleError').innerText = "Kąt musi być liczbą między 1 a 180.";
+                        return;
+                    }
+                    document.getElementById('angleError').innerText = ""; // Wyczyść komunikat błędu, jeśli kąt jest prawidłowy
+
+                    var distanceWeight;
+                    if (distance <= 35) {
+                        distanceWeight = 1 - (distance / 35) * 0.85; // Wartości od 1 do 35 rosną
+                    } else {
+                        distanceWeight = 0.34 - ((distance - 35) / 65) * 0.33; // Wartości od 36 do 100 maleją
+                    }
+
+                    // Skalowanie kąta w sposób nieliniowy
+                    if (angle <= 90) {
+                        angle = angle / 90; // Wartości od 1 do 90 rosną
+                    } else {
+                        angle = 1 - ((angle - 90) / 90); // Wartości od 91 do 180 maleją
+                    }
+
+                    var bodyPart = parseFloat(document.getElementById('bodyPart').value);
+                    var assistType = parseFloat(document.getElementById('assistType').value);
+                    var actionScheme = parseFloat(document.getElementById('actionScheme').value);
+
+                    // Wagi dla każdej zmiennej
+                    var angleWeight = 0.5;
+                    var bodyPartWeight = 0.1;
+                    var assistTypeWeight = 0.1;
+                    var actionSchemeWeight = 0.1;
+
+                    // Obliczanie xG
+                    var xG = 0.27*distanceWeight + (angle * angleWeight) + (bodyPart * bodyPartWeight) + (assistType * assistTypeWeight) + (actionScheme * actionSchemeWeight);
+
+                    // Wyświetlenie wyniku
+                    document.getElementById('result').innerText = "Spodziewane gole (xG): " + xG.toFixed(2);
+                }
+            </script>
+        </div>
+    </main>
+</body>
+</html>

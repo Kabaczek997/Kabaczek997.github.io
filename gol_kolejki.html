@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="header.css">
+    <title>Gol kolejki</title>
+    <style>
+        main {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            min-height: 100vh;
+            
+        }
+        h1 {
+            margin: 20px 0;
+            padding:20px;
+            background-color: rgba(0, 0, 0, 0.8);
+            color:cyan;
+            border-radius: 10px;
+        }
+        .video-container {
+            position: relative;
+            width: 1200px;
+            height: 675px;
+        }
+        .video-container iframe {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+        }
+        
+    </style>
+</head>
+<body>
+    <header>
+        <h1><a href="index.html" class="header-link"><img src ="sitegallery/pitchpulse.png" style="max-width:100px; max-height: 100px; vertical-align: middle;">PitchPulse</a></h1>
+        <nav>
+            <ul>
+                <li><a href="form.html">Formularz zgłoszeniowy</a></li>
+                <li><a href="tabela.html">Tabela wyników</a></li>
+                <li><a href="gallery.html">Galeria zdjęć</a></li>
+                <li><a href="diy-herb.html">Narysuj herb</a></li>
+                <li><a href="round-map.html">Mapa kolejki</a></li>
+                <li><a href="xG.html">xG</a></li>
+                <li><a href="Stadiony/Prezentacja.html">Prezentacja</a></li>
+                <div class="timers">
+                    <p>Zegar: <span id="clock"></span></p>
+                    <p>Data: <span id="date"></span></p>
+                    <p>Licznik odwiedzin: <span id="visitCounter"></span></p>
+                    <p>Czas spędzony na stronie: <span id="pageTime"></span></p>
+                    <script src="timers.js"></script>
+                </div>
+            </ul>
+        </nav>
+    </header>
+    <main>
+        <h1>Gol kolejki</h1>
+        <div class="video-container">
+            <iframe src="https://www.youtube.com/embed/mxQOOMX4NQM?autoplay=1" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>    </div>
+    
+    </main>
+</body>
+</html>

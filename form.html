@@ -1,0 +1,170 @@
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="header.css">
+    <link rel="stylesheet" href="formstyle.css">
+
+    <title>Formularz zgłoszeniowy</title>
+</head>
+<body>
+    <header>
+        <h1><a href="index.html" class="header-link"><img src ="sitegallery/pitchpulse.png" style="max-width:100px; max-height: 100px; vertical-align: middle;">PitchPulse</a></h1>
+        <nav>
+            <ul>
+                <li><a href="form.html">Formularz zgłoszeniowy</a></li>
+                <li><a href="tabela.html">Tabela wyników</a></li>
+                <li><a href="gallery.html">Galeria zdjęć</a></li>
+                <li><a href="diy-herb.html">Narysuj herb</a></li>
+                <li><a href="round-map.html">Mapa kolejki</a></li>
+                <li><a href="xG.html">xG</a></li>
+                <li><a href="Stadiony/Prezentacja.html">Prezentacja</a></li>
+                <div class="timers">
+                    <p>Zegar: <span id="clock"></span></p>
+                    <p>Data: <span id="date"></span></p>
+                    <p>Licznik odwiedzin: <span id="visitCounter"></span></p>
+                    <p>Czas spędzony na stronie: <span id="pageTime"></span></p>
+                    <script src="timers.js"></script>
+                </div>
+            </ul>
+        </nav>
+    </header>
+    <main>
+
+        <div class="form-container">
+            
+            <form action="mailto:imie.nazwisko@put.poznan.pl" method="post" enctype="text/plain">
+                
+                <h2>Formularz zgłoszeniowy</h2>
+
+                <label for="imie">Imię:</label><br>
+                <input type="text" id="imie" name="imie" required><br><br>
+
+                <label for="nazwisko">Nazwisko:</label><br>
+                <input type="text" id="nazwisko" name="nazwisko" required><br><br>
+
+                <label for="email">Email:</label><br>
+                <input type="email" id="email" name="email" required><br><br>
+
+                <label for="data_urodzenia">Data urodzenia:</label><br>
+                <input type="date" id="data_urodzenia" name="data_urodzenia" required><br><br>
+                
+                    <label>Płeć:</label><br>
+                <div class="checkbox-group">
+                <label for="mezczyzna">
+                <input type="radio" id="mezczyzna" name="plec" value="mezczyzna" required>
+                    Mężczyzna</label>
+                <label for="kobieta">
+                <input type="radio" id="kobieta" name="plec" value="kobieta" required>
+                    Kobieta</label>
+                <label for="inna">
+                <input type="radio" id="inna" name="plec" value="inna" required>
+                    Inna</label>
+                </div>
+                <br><br>
+                <label for="wzrost">Wzrost:</label>
+                <select id="wzrost" name="wzrost">
+                    <option value="140">140</option>
+                    <option value="141">141</option>
+                    <option value="142">142</option>
+                    <option value="143">143</option>
+                    <option value="144">144</option>
+                    <option value="145">145</option>
+                    <option value="146">146</option>
+                    <option value="147">147</option>
+                    <option value="148">148</option>
+                    <option value="149">149</option>
+                    <option value="150">150</option>
+                    <option value="151">151</option>
+                    <option value="152">152</option>
+                    <option value="153">153</option>
+                    <option value="154">154</option>
+                    <option value="155">155</option>
+                    <option value="156">156</option>
+                    <option value="157">157</option>
+                    <option value="158">158</option>
+                    <option value="159">159</option>
+                    <option value="160">160</option>
+                    <option value="161">161</option>
+                    <option value="162">162</option>
+                    <option value="163">163</option>
+                    <option value="164">164</option>
+                    <option value="165">165</option>
+                    <option value="166">166</option>
+                    <option value="167">167</option>
+                    <option value="168">168</option>
+                    <option value="169">169</option>
+                    <option value="170">170</option>
+                    <option value="171">171</option>
+                    <option value="172">172</option>
+                    <option value="173">173</option>
+                    <option value="174">174</option>
+                    <option value="175">175</option>
+                    <option value="176">176</option>
+                    <option value="177">177</option>
+                    <option value="178">178</option>
+                    <option value="179">179</option>
+                    <option value="180">180</option>
+                    <option value="181">181</option>
+                    <option value="182">182</option>
+                    <option value="183">183</option>
+                    <option value="184">184</option>
+                    <option value="185">185</option>
+                    <option value="186">186</option>
+                    <option value="187">187</option>
+                    <option value="188">188</option>
+                    <option value="189">189</option>
+                    <option value="190">190</option>
+                    <option value="191">191</option>
+                    <option value="192">192</option>
+                    <option value="193">193</option>
+                    <option value="194">194</option>
+                    <option value="195">195</option>
+                    <option value="196">196</option>
+                    <option value="197">197</option>
+                    <option value="198">198</option>
+                    <option value="199">199</option>
+                    <option value="200">200</option>
+                    <option value="201">201</option>
+                    <option value="202">202</option>
+                    <option value="203">203</option>
+                    <option value="204">204</option>
+                    <option value="205">205</option>
+                    <option value="206">206</option>
+                    <option value="207">207</option>
+                    <option value="208">208</option>
+                    <option value="209">209</option>
+                    <option value="210">210</option>
+                    <label for="Wzrost"> cm</label>
+
+                </select><br><br>
+
+                <label for="o_sobie">Coś o sobie:</label><br>
+                <textarea id="o_sobie" name="o_sobie" rows="4" cols="50"></textarea><br><br>
+
+                <label>Cechy piłkarskie:</label><br>
+                <div class="checkbox-group">
+                    <label style="display: flex; align-items: center;">
+                        <input type="checkbox" id="szybkosc" name="cechy[]" value="szybkosc" style="text-align: center;">
+                        Szybkość
+                    </label>
+                    
+                    <label style="display: flex; align-items: center;">
+                        <input type="checkbox" id="sprawnosc" name="cechy[]" value="sprawnosc" style="text-align: center;">
+                        Sprawność
+                    </label>
+                    
+                    <label style="display: flex; align-items: center;">
+                        <input type="checkbox" id="technika" name="cechy[]" value="technika" style="text-align: center;">
+                        Technika
+                    </label>
+                </div>
+                <br><br>
+                <input type="submit" value="Wyślij zgłoszenie">
+                <br><br><br><br>
+            </form>
+        </div>
+    </main>
+</body>
+</html>

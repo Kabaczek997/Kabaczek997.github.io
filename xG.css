@@ -1,0 +1,59 @@
+label {
+    display: block;
+    margin-bottom: 20px;
+    color: white;
+}
+
+input, select {
+    width: 120px;
+    margin-bottom: 10px;
+    background-color: rgba(50, 50, 50, 1);
+    color: cyan;
+    border: 0;
+}
+
+button {
+    padding: 10px 20px;
+    background-color: rgba(50, 50, 50, 1);
+    color: cyan;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+    button:hover {
+        background-color: gray;
+    }
+
+#result {
+    margin-top: 20px;
+}
+
+.error {
+    color: lightcoral;
+    margin-top: 5px;
+}
+main{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    box-sizing: border-box;
+    margin-left: 340px;
+}
+.kalkulator{
+    height: 100%;
+    width: 600px;
+    margin-top: 5vh;
+    margin-bottom: 5vh;
+    background-color: rgba(0, 0, 0, 0.8); /* Tło formularza */
+    color: white;
+    text-align: center;
+    border-radius: 10px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    padding: 20px;
+    border-radius: 10px;
+}

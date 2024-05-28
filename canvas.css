@@ -1,0 +1,74 @@
+main {
+    margin-left: 340px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh; /* Ustawienie minimalnej wysokości na 100% wysokości widoku */
+   
+}
+.instructions {
+    margin-bottom: 20px;
+    color: white;
+    background-color: rgba(0, 0, 0, 0.8);
+    padding: 20px;
+    border-radius: 10px;
+}
+
+.instructions p {
+    font-weight: bold;
+}
+
+.instructions ul {
+    list-style-type: disc;
+    padding-left: 20px;
+    margin-top: 10px;
+}
+
+.controls {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    margin-bottom: 20px;
+    color: white;
+}
+
+.controls label {
+    margin-right: 5px;
+}
+
+.controls input,
+.controls select,
+.controls button {
+    padding: 5px;
+    border-radius: 4px;
+    border: 1px solid #ccc;
+    background-color: rgba(50, 50, 50, 1);
+    color: cyan;
+    cursor: pointer;
+}
+
+.controls button {
+    background-color: rgba(50, 50, 50, 1);
+    color: cyan;
+    border: none;
+}
+
+.controls input:hover,
+.controls select:hover,
+.controls button:hover {
+    background-color: rgba(80, 80, 80, 1);;
+}
+
+canvas {
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    cursor: crosshair;
+    align-items: center;
+
+}
+.drawing {
+    background-color: rgba(0, 0, 0, 0.8);
+    padding: 20px;
+    border-radius: 10px;
+}

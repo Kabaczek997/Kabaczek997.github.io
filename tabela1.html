@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tabela z pliku CSV</title>
+    <style>
+        table {
+            border-collapse: collapse;
+            width: 100%;
+        }
+        th, td {
+            border: 1px solid black;
+            padding: 8px;
+            text-align: left;
+        }
+        th {
+            background-color: #f2f2f2;
+        }
+    </style>
+</head>
+<body>
+    <h2>Tabela z pliku CSV</h2>
+    <table id="csvTable">
+        <!-- Dane z pliku CSV zostaną wstawione tutaj -->
+        <tr>
+            <th colspan="11">Tabela wyników ligi piłkarskiej</th>
+            
+        </tr>
+    </table>
+
+    <script>
+        // Funkcja do wczytania pliku CSV i utworzenia tabeli
+        function loadCSV(filename) {
+            fetch(filename)
+                .then(response => response.text())
+                .then(data => {
+                    const rows = data.trim().split('\n');
+                    const table = document.getElementById('csvTable');
+
+                    rows.forEach(row => {
+                        const cells = row.split(',');
+                        const tr = document.createElement('tr');
+
+                        cells.forEach(cell => {
+                            const td = document.createElement('td');
+                            td.textContent = cell;
+                            tr.appendChild(td);
+                        });
+
+                        table.appendChild(tr);
+                    });
+                })
+                .catch(error => {
+                    console.error('Błąd wczytywania pliku CSV:', error);
+                });
+        }
+
+        // Wczytaj plik CSV po załadowaniu strony
+        window.addEventListener('DOMContentLoaded', () => {
+            loadCSV('tabela1.csv'); // Podaj nazwę pliku CSV
+        });
+    </script>
+</body>
+</html>

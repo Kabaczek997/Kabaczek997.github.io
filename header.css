@@ -1,0 +1,94 @@
+body {
+    margin: 0;
+    font-family: Arial, sans-serif;
+    display: flex;
+    flex-direction: column;
+    background: url('gallery/stadium.png') no-repeat center center fixed; /* Ustaw tło */
+    background-size: cover; /* Rozciągnij obraz do wymiarów ekranu */
+    height: 100%;
+  
+}
+header {
+    position: fixed;
+    left: 0;
+    top: 0;
+    height: 100%;
+    background-color: #000;
+    color: #fff;
+    display: flex;
+    flex-direction: column;
+    padding: 1%;
+    margin-left: auto;
+    width: 16%;
+    font-size: larger;
+}
+.header-link {
+    text-decoration: none;  /* Usuwa podkreślenie linku */
+    color: white;           /* Ustawia biały kolor tekstu */
+}
+
+
+header h1 {
+    margin: 0 0 40px 0; /* Większa przerwa pod h1 */
+    color : white
+}
+
+nav ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    width: 100%;
+}
+
+nav ul li {
+    width: 100%;
+    margin-bottom: 3%; /* Większa przerwa między przyciskami */
+}
+
+nav ul li a {
+    display: block;
+    color: white;
+    text-decoration: none;
+    padding: 6% 9%; /* Większe przyciski */
+    transition: background-color 0.3s;
+    border-radius: 10px; /* Zaokrąglone narożniki */
+}
+
+nav ul li a:hover {
+    background-color: #3a3a3a; /* Ciemniejszy szary przy najechaniu */
+    color:cyan
+}
+
+.header-link {
+    text-decoration: none;  /* Usuwa podkreślenie linku */
+    color: white;           /* Ustawia biały kolor tekstu */
+}
+
+/* Nadpisanie stylów dla różnych stanów linku */
+.header-link:link,
+.header-link:visited,
+.header-link:hover,
+.header-link:active {
+    color: white;           /* Ustawia biały kolor tekstu dla wszystkich stanów linku */
+    text-decoration: none;  /* Usuwa podkreślenie dla wszystkich stanów linku */
+}
+
+h1 .header-link {
+    font-size: inherit;     /* Przejęcie wielkości fontu z nagłówka */
+    font-weight: inherit;   /* Przejęcie wagi fontu z nagłówka */
+}
+.timers {
+    position: absolute;
+    bottom: 10%;
+    width: 100%;
+    color: white;
+    padding: 10px 0;
+    font-size: small;
+    
+    
+    
+}
+
+.timers p {
+    margin: 5px 0;
+}

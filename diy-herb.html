@@ -1,0 +1,207 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="header.css">
+    <link rel="stylesheet" href="canvas.css">
+    <title>Stwórz własny herb klubu</title>
+
+</head>
+<body>
+    <header>
+        <h1><a href="index.html" class="header-link"><img src ="sitegallery/pitchpulse.png" style="max-width:100px; max-height: 100px; vertical-align: middle;">PitchPulse</a></h1>
+        <nav>
+            <ul>
+                <li><a href="form.html">Formularz zgłoszeniowy</a></li>
+                <li><a href="tabela.html">Tabela wyników</a></li>
+                <li><a href="gallery.html">Galeria zdjęć</a></li>
+                <li><a href="diy-herb.html">Narysuj herb</a></li>
+                <li><a href="round-map.html">Mapa kolejki</a></li>
+                <li><a href="xG.html">xG</a></li>
+                <li><a href="Stadiony/Prezentacja.html">Prezentacja</a></li>
+                <div class="timers">
+                    <p>Zegar: <span id="clock"></span></p>
+                    <p>Data: <span id="date"></span></p>
+                    <p>Licznik odwiedzin: <span id="visitCounter"></span></p>
+                    <p>Czas spędzony na stronie: <span id="pageTime"></span></p>
+                    <script src="timers.js"></script>
+                </div>
+            </ul>
+        </nav>
+    </header>
+    <main>
+        <div class="instructions">
+            <p><strong>Instrukcje do rysowania:</strong></p>
+            <ul>
+                <li>Wybierz kolor i rozmiar pędzla.</li>
+                <li>Wybierz kształt z listy rozwijanej.</li>
+                <li>Przeciągnij myszą na płótnie, aby rysować lub tworzyć kształty.</li>
+                <li>Kliknij "Wyczyść", aby usunąć wszystko z płótna.</li>
+                <li>Naciśnij "Cofnij", aby cofnąć ostatni krok.</li>
+                <li>Kliknij "Pobierz", aby zapisać obraz jako PNG.</li>
+                <li>Wybierz kolor płótna, aby zmienić tło płótna.</li>
+            </ul>
+        </div>
+        <div class="drawing">
+            <div class="controls">
+                <label for="colorPicker">Kolor:</label>
+                <input type="color" id="colorPicker" value="#000000">
+                <label for="brushSize">Rozmiar pędzla:</label>
+                <input type="number" id="brushSize" value="5" min="1" max="50">
+                <label for="shapeSelector">Kształt:</label>
+                <select id="shapeSelector">
+                    <option value="free">Rysowanie dowolne</option>
+                    <option value="square">Kwadrat</option>
+                    <option value="circle">Owal</option>
+                    <option value="octagon">Ośmiokąt</option>
+                    <option value="pentagon">Pięciokąt</option>
+                    <option value="triangle">Trójkąt</option>
+                </select>
+                <label for="canvasColorPicker">Kolor płótna:</label>
+                <input type="color" id="canvasColorPicker" value="#ffffff">
+                <button id="undoButton">Cofnij</button>
+                <button id="clearButton">Wyczyść</button>
+                <button id="downloadButton">Pobierz</button>
+            </div>
+            <canvas id="paintCanvas" width="900" height="600"></canvas>
+        </div>
+       
+
+        <script>
+            const canvas = document.getElementById('paintCanvas');
+            const ctx = canvas.getContext('2d');
+            const colorPicker = document.getElementById('colorPicker');
+            const brushSize = document.getElementById('brushSize');
+            const shapeSelector = document.getElementById('shapeSelector');
+            const clearButton = document.getElementById('clearButton');
+            const undoButton = document.getElementById('undoButton');
+            const downloadButton = document.getElementById('downloadButton');
+            const canvasColorPicker = document.getElementById('canvasColorPicker');
+
+            let painting = false;
+            let startX, startY;
+            const undoStack = [];
+
+            function saveState() {
+                undoStack.push(canvas.toDataURL());
+            }
+
+            function startPosition(e) {
+                painting = true;
+                startX = e.clientX - canvas.offsetLeft;
+                startY = e.clientY - canvas.offsetTop;
+                if (shapeSelector.value === "free") {
+                    saveState();
+                    draw(e);
+                }
+            }
+
+            function endPosition(e) {
+                if (!painting) return;
+                painting = false;
+                ctx.beginPath();
+                if (shapeSelector.value !== "free") {
+                    saveState();
+                    drawShape(e);
+                }
+            }
+
+            function draw(e) {
+                if (!painting || shapeSelector.value !== "free") return;
+
+                ctx.lineWidth = brushSize.value;
+                ctx.lineCap = 'round';
+                ctx.strokeStyle = colorPicker.value;
+
+                ctx.lineTo(e.clientX - canvas.offsetLeft, e.clientY - canvas.offsetTop);
+                ctx.stroke();
+                ctx.beginPath();
+                ctx.moveTo(e.clientX - canvas.offsetLeft, e.clientY - canvas.offsetTop);
+            }
+
+            function drawShape(e) {
+                const endX = e.clientX - canvas.offsetLeft;
+                const endY = e.clientY - canvas.offsetTop;
+                const width = endX - startX;
+                const height = endY - startY;
+                const size = Math.min(Math.abs(width), Math.abs(height));
+                ctx.strokeStyle = colorPicker.value;
+                ctx.lineWidth = brushSize.value;
+                ctx.beginPath();
+
+                switch (shapeSelector.value) {
+                    case "square":
+                        ctx.rect(startX, startY, width, height);
+                        break;
+                    case "circle":
+                        ctx.ellipse(startX + width / 2, startY + height / 2, Math.abs(width / 2), Math.abs(height / 2), 0, 0, 2 * Math.PI);
+                        break;
+                    case "octagon":
+                        drawPolygon(ctx, startX + width / 2, startY + height / 2, size / 2, 8);
+                        break;
+                    case "pentagon":
+                        drawPolygon(ctx, startX + width / 2, startY + height / 2, size / 2, 5);
+                        break;
+                    case "triangle":
+                        drawPolygon(ctx, startX + width / 2, startY + height / 2, size / 2, 3);
+                        break;
+                }
+                ctx.stroke();
+            }
+
+            function drawPolygon(ctx, cx, cy, radius, sides) {
+                const angle = 2 * Math.PI / sides;
+                const rotation = Math.PI / 2; // Ustawienie podstawy równolegle do dolnej krawędzi
+                ctx.moveTo(cx + radius * Math.cos(rotation), cy - radius * Math.sin(rotation));
+                for (let i = 1; i <= sides; i++) {
+                    ctx.lineTo(cx + radius * Math.cos(rotation + i * angle), cy - radius * Math.sin(rotation + i * angle));
+                }
+                ctx.closePath();
+            }
+
+            function updateCanvasBackgroundColor() {
+                const currentFillStyle = ctx.fillStyle;
+                ctx.fillStyle = canvasColorPicker.value;
+                ctx.fillRect(0, 0, canvas.width, canvas.height);
+                ctx.fillStyle = currentFillStyle;
+            }
+
+            canvas.addEventListener('mousedown', startPosition);
+            canvas.addEventListener('mouseup', endPosition);
+            canvas.addEventListener('mousemove', draw);
+
+            clearButton.addEventListener('click', () => {
+                saveState();
+                ctx.clearRect(0, 0, canvas.width, canvas.height);
+                updateCanvasBackgroundColor();
+            });
+
+            undoButton.addEventListener('click', () => {
+                if (undoStack.length > 0) {
+                    const lastState = undoStack.pop();
+                    const img = new Image();
+                    img.src = lastState;
+                    img.onload = () => {
+                        ctx.clearRect(0, 0, canvas.width, canvas.height);
+                        ctx.drawImage(img, 0, 0);
+                    }
+                }
+            });
+
+            downloadButton.addEventListener('click', () => {
+                const link = document.createElement('a');
+                link.download = 'canvas_image.png';
+                link.href = canvas.toDataURL('image/png');
+                link.click();
+            });
+
+            canvasColorPicker.addEventListener('change', updateCanvasBackgroundColor);
+
+            // Initialize canvas background color
+            updateCanvasBackgroundColor();
+        </script>
+    </main>
+</body>
+</html>

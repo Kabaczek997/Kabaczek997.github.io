@@ -1,0 +1,57 @@
+
+
+/* Styl dla main i galerii */
+main {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    height: 100%;
+}
+
+#gallery {
+    display: none;
+}
+
+/* Styl dla modala */
+#modal {
+    display: none;
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 640px;
+    height: 480px;
+    background-color: rgba(0, 0, 0, 0.8);
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+    padding: 20px;
+    z-index: 1000;
+    border-radius: 8px;
+}
+
+#modal img {
+    width: 100%;
+    height: calc(100% - 40px); /* 40px height for controls */
+    object-fit: contain;
+}
+
+#modal .controls {
+    display: flex;
+    justify-content: center;
+    margin-top: 10px;
+   
+}
+
+#modal .controls button {
+    padding: 10px;
+    background-color: #333;
+    color: cyan;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    margin-right: 10px;
+}
+
+#modal .controls button:hover {
+    background-color: #555;
+}

@@ -1,0 +1,35 @@
+main{
+
+    flex-grow: 1;
+    box-sizing: border-box;
+    margin-left: 18%;
+    flex: 1;
+    overflow: auto;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+
+}
+.map-img{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    max-height: fit-content;
+    max-width:inherit;
+}
+
+h2 {
+    font-size: 2.5em; /* Zwiększenie rozmiaru czcionki */
+
+    margin-bottom: 20px;
+    color:cyan;
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5); /* Dodanie cienia do tekstu */
+    font-weight: bold; /* Wytłuszczenie tekstu */
+    letter-spacing: 2px; /* Zwiększenie odstępu między literami */
+    background: rgba(0, 0, 0, 1); /* Ciemne tło z przezroczystością */
+    padding: 10px 20px; /* Dodanie wewnętrznego marginesu */
+    border-radius: 10px; /* Zaokrąglone rogi */
+
+}

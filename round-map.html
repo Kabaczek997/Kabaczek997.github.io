@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="header.css">
+
+    <title>Mapa interaktywna</title>
+</head>
+
+    <body>
+        <header>
+            <h1><a href="index.html" class="header-link"><img src ="sitegallery/pitchpulse.png" style="max-width:100px; max-height: 100px; vertical-align: middle;">PitchPulse</a></h1>
+            <nav>
+                <ul>
+                    <li><a href="form.html">Formularz zgłoszeniowy</a></li>
+                    <li><a href="tabela.html">Tabela wyników</a></li>
+                    <li><a href="gallery.html">Galeria zdjęć</a></li>
+                    <li><a href="diy-herb.html">Narysuj herb</a></li>
+                    <li><a href="round-map.html">Mapa kolejki</a></li>
+                    <li><a href="xG.html">xG</a></li>
+                    <li><a href="Stadiony/Prezentacja.html">Prezentacja</a></li>
+                    <div class="timers">
+                        <p>Zegar: <span id="clock"></span></p>
+                        <p>Data: <span id="date"></span></p>
+                        <p>Licznik odwiedzin: <span id="visitCounter"></span></p>
+                        <p>Czas spędzony na stronie: <span id="pageTime"></span></p>
+                        <script src="timers.js"></script>
+                    </div>
+                </ul>
+            </nav>
+        </header>
+<main>
+    <h2>Mapa Kolejki</h2>
+    <p style="color:white; background-color: rgba(0, 0, 0, 0.8); padding: 2%; border-radius: 5%; max-width: 60vh;">Poniżej znajduje się przegląd kolejki! Dowiedz się o zawodniku kolejki, o tym jak wyglądał mecz kolejki lub obejrzyj nalepszego gola kolejki. Aby przejść do nich, wystarczy kliknąć na odpowiedni obrazek! </p>
+    <div class="map-img">
+        <img src="sitegallery/round_map2.png" alt="Kolejka" usemap="#kolejkaMap" style="max-width:100%; height:auto;">
+
+        <map name="kolejkaMap">
+            <!-- Znacznik dla zawodnika kolejki (sześciokąt) -->
+            <area shape="poly" coords="15,120, 15,300, 194,389, 373,300, 374,120, 194,30" alt="Zawodnik kolejki" href="zawodnik_kolejki.html">
+            <!-- Znacznik dla meczu kolejki (sześciokąt) -->
+            <area shape="poly" coords="375,120, 375,300, 554,389, 734,300, 734,120, 554,30" alt="Mecz kolejki" href="mecz_kolejki.html">
+            <!-- Znacznik dla gola kolejki (sześciokąt) -->
+            <area shape="poly" coords="735,120, 735,300, 914,389, 1094,300, 1094,120, 914,30" alt="Gol kolejki" href="gol_kolejki.html">
+        </map>
+        <script>
+            document.addEventListener("DOMContentLoaded", function() {
+                const image = document.getElementById("mappedImage");
+                const originalWidth = image.naturalWidth;
+                const map = document.querySelector("map[name='image-map']");
+                const areas = map.getElementsByTagName("area");
+    
+                function resizeMap() {
+                    const widthRatio = image.clientWidth / originalWidth;
+    
+                    for (let area of areas) {
+                        const originalCoords = area.dataset.coords.split(',').map(Number);
+                        const resizedCoords = originalCoords.map(coord => coord * widthRatio);
+                        area.coords = resizedCoords.join(',');
+                    }
+                }
+    
+                // Save original coordinates to dataset
+                for (let area of areas) {
+                    area.dataset.coords = area.coords;
+                }
+    
+                window.addEventListener("resize", resizeMap);
+                resizeMap();
+            });
+        </script>
+    </div>
+</main>  
+</body>
+</html>

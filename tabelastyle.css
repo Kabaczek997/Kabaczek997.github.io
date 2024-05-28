@@ -1,0 +1,61 @@
+
+main {
+    margin-left: 340px;
+    display: flex;
+    justify-content: center; /* Wycentrowanie poziome */
+    align-items: center; /* Wycentrowanie pionowe */
+    min-height: 100vh; /* Ustawienie minimalnej wysokości na 100% wysokości widoku */
+   
+}
+
+/* Stylizacja dla całej tabeli */
+table {
+
+    font-size: 18px;
+    text-align: left;
+    background-color: rgba(30, 30, 30, 0.9); /* Półprzezroczyste tło */
+    color: white;
+    text-transform: uppercase;
+    font-weight: bold;
+    width: 95vh;
+    border-color: white;
+}
+
+/* Stylizacja nagłówków tabeli */
+table th {
+
+    color: white; /* Kolor tekstu nagłówków */
+    padding: 10px; /* Wewnętrzne odstępy */
+
+}
+
+/* Stylizacja komórek tabeli */
+table td {
+    padding: 10px; /* Wewnętrzne odstępy */
+}
+
+/* Stylizacja wierszy */
+table tr:nth-child(even) {
+    background-color: rgba(50, 50, 50,0.7); /* Kolor tła dla co drugiego wiersza */
+}
+
+/* Stylizacja wiersza na hover */
+table tr:hover {
+    background-color: rgba(140, 255, 255, 0.8); /* Kolor tła wiersza po najechaniu kursorem */
+    color:black;
+    transition: background-color 0.4s;
+
+}
+
+/* Stylizacja pierwszej kolumny */
+table td:first-child {
+    font-weight: bold; /* Pogrubienie tekstu w pierwszej kolumnie */
+}
+
+/* Stylizacja dla głównego nagłówka tabeli */
+table th[colspan="11"] {
+    text-align: center; /* Wyśrodkowanie tekstu */
+    font-size: 24px; /* Większy rozmiar czcionki */
+
+    background-color: #333; /* Kolor tła */
+}
