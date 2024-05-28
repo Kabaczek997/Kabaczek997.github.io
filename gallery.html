@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html lang="pl">
 <head>
@@ -77,7 +78,8 @@
             const imageLinks = htmlDoc.querySelectorAll('a[href$=".jpg"], a[href$=".jpeg"], a[href$=".png"], a[href$=".gif"]');
 
             imageLinks.forEach(imageLink => {
-                images.push('./gallery/' + imageLink.getAttribute('href'));
+                const imageUrl = './gallery/' + imageLink.getAttribute('href').split('/').pop();
+                images.push(imageUrl);
             });
 
             if (images.length > 0) {
