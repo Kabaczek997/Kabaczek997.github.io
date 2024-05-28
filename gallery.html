@@ -114,7 +114,22 @@
             displayImage(images.length - 1);
         }
     });
+function displayImage(index) {
+    const imageUrl = images[index];
+    console.log('Image URL:', imageUrl); // Dodaj ten console.log, aby sprawdzić adres URL obrazu
+    openModal(imageUrl);
+    currentImageIndex = index;
+}
 
+// Funkcja do otwierania modala i wyświetlania zdjęcia
+function openModal(src) {
+    console.log('Modal source:', src); // Dodaj ten console.log, aby sprawdzić, co jest przekazywane do funkcji openModal()
+    const modal = document.getElementById('modal');
+    const modalImg = document.getElementById('modal-img');
+
+    modal.style.display = 'block';
+    modalImg.src = src;
+}
 </script>
 
 </body>
